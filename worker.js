@@ -3,27 +3,103 @@ const syncRequest = require('sync-request');
 const fs = require('fs');
 const jsonfile = require('jsonfile');
 
-const weGotIds = require('./data/WeGot/idsForFEC.js');
+let weGotIds = require('./data/WeGot/idsForFEC.js');
+let info1 = require('./data/WeGot/restaurants_detailed.json');
+let info2 = require('./data/WeGot/dataWithTagline.json');
+let info3 = require('./data/WeGot/dataWithShort.json');
+let info4 = require('./data/WeGot/dataWithLong.json');
 
 //mongoose.connect('mongodb://localhost/INSERT_DB_NAME');
 
-const worker = function(data) {
-  let weGotPlaceIds = data.map(id => {
-    return {
-      hello: 'ha, funny',
-      bye: 'lol cya',
-    };
+// ============================================================================================== //
+// ============================= Long Description Function ====================================== //
+// ============================================================================================== //
+
+const addLongDescription = function(data) {
+  data.forEach((place, index) => {
+    var res = syncRequest('GET', 'https://baconipsum.com/api/?paras=1&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1');
+    var ogLongDesc = JSON.parse(res.getBody().toString()).join(' ');
+    console.log(index, ogLongDesc);
+    place.result['long_description'] = ogLongDesc;
   });
-  jsonfile.writeFileSync('weGotSomeIds', weGotPlaceIds, 'utf-8', (err) => {
+  jsonfile.writeFileSync('dataWithLong.json', data, 'utf-8', (err) => {
     if (err) {
       throw err;
     }
   });
 };
 
-worker(weGotIds);
+addLongDescription(info3);
 
-// the command to run this is: npm run worker
+// ============================================================================================== //
+// ============================== Short Description Function ==================================== //
+// ============================================================================================== //
+
+// const addShortDescription = function(data) {
+//   data.forEach((place, index) => {
+//     var res = syncRequest('GET', 'https://baconipsum.com/api/?type=meat-and-filler&sentences=1');
+//     var ogShortDesc = JSON.parse(res.getBody().toString()).join(' ');
+//     var tempStr = '';
+//     for (var letter of ogShortDesc) {
+//       if (letter !== ',' && letter !== '.') {
+//         tempStr += letter;
+//       }
+//     }
+//     tempStr = tempStr.split(' ');
+//     //console.log('og is: ',typeof ogShortDesc, ogShortDesc);
+//     // console.log(tempStr);
+//     var shortDescArr = [];
+//     while (shortDescArr.length <= 10) {
+//       var i = Math.floor(Math.random() * tempStr.length);
+//       shortDescArr.push(tempStr[i]);
+//     }
+//     var shortDescText = shortDescArr.join(' ');
+//     console.log(index, shortDescText);
+//     place.result['short_description'] = shortDescText;
+//   });
+//   jsonfile.writeFileSync('dataWithShort.json', data, 'utf-8', (err) => {
+//     if (err) {
+//       throw err;
+//     }
+//   });
+// };
+
+// addShortDescription(info2);
+
+// ============================================================================================== //
+// ================================= Tagline Function =========================================== //
+// ============================================================================================== //
+
+// const addTagline = function(data) {
+//   data.forEach((place, index) => {
+//     var res = syncRequest('GET', 'https://baconipsum.com/api/?type=all-meat&sentences=1');
+//     var ogTagline = JSON.parse(res.getBody().toString()).join(' ');
+//     var tempStr = '';
+//     for (var letter of ogTagline) {
+//       if (letter !== ',' && letter !== '.') {
+//         tempStr += letter;
+//       }
+//     }
+//     tempStr = tempStr.split(' ');
+//     //console.log('og is: ',typeof ogTagline, ogTagline);
+//     var taglineText = '';
+//     for (var i = 0; i < 4; i += 1) {
+//       if (i === 3) {
+//         taglineText += tempStr[i];
+//       } else {
+//         taglineText += tempStr[i] + ' ';
+//       }
+//     }
+//     console.log(index, taglineText);
+//     place.result['short_description'] = taglineText;
+//   });
+//   jsonfile.writeFileSync('test1.json', data, 'utf-8', (err) => {
+//     if (err) {
+//       throw err;
+//     }
+//   });
+// };
+// addTagline(info1);
 
 
 
@@ -34,6 +110,60 @@ worker(weGotIds);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================================================== //
+// ============================================================================================== //
+// ============================================================================================== //
+// ============================================================================================== //
+// ============================ Below is promise stuff for reference ============================ //
+// ============================================================================================== //
+// ============================================================================================== //
+// ============================================================================================== //
+// ============================================================================================== //
 
 
 

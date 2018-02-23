@@ -15,21 +15,45 @@ let info4 = require('./data/WeGot/dataWithLong.json');
 // ============================= Long Description Function ====================================== //
 // ============================================================================================== //
 
-const addLongDescription = function(data) {
-  data.forEach((place, index) => {
-    var res = syncRequest('GET', 'https://baconipsum.com/api/?paras=1&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1');
-    var ogLongDesc = JSON.parse(res.getBody().toString()).join(' ');
-    console.log(index, ogLongDesc);
-    place.result['long_description'] = ogLongDesc;
-  });
-  jsonfile.writeFileSync('dataWithLong.json', data, 'utf-8', (err) => {
-    if (err) {
-      throw err;
-    }
-  });
-};
+// const addRatings = function(data) {
+//   data.forEach((place, index) => {
+//     let zagat_food = (Math.random() * 5).toString().slice(0, 3);
+//     let zagat_decor = (Math.random() * 5).toString().slice(0, 3);
+//     let zagat_service = (Math.random() * 5).toString().slice(0, 3);
+//     place.result['zagat_food'] = zagat_food;
+//     place.result['zagat_decor'] = zagat_decor;
+//     place.result['zagat_service'] = zagat_service;
+//     console.log(index, zagat_food, zagat_decor, zagat_service);
+//   });
+//   jsonfile.writeFileSync('dataAll.json', data, 'utf-8', (err) => {
+//     if (err) {
+//       throw err;
+//     }
+//   });
+// };
 
-addLongDescription(info3);
+// addRatings(info4);
+
+
+// ============================================================================================== //
+// ============================= Long Description Function ====================================== //
+// ============================================================================================== //
+
+// const addLongDescription = function(data) {
+//   data.forEach((place, index) => {
+//     var res = syncRequest('GET', 'https://baconipsum.com/api/?paras=1&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1');
+//     var ogLongDesc = JSON.parse(res.getBody().toString()).join(' ');
+//     console.log(index, ogLongDesc);
+//     place.result['long_description'] = ogLongDesc;
+//   });
+//   jsonfile.writeFileSync('dataWithLong.json', data, 'utf-8', (err) => {
+//     if (err) {
+//       throw err;
+//     }
+//   });
+// };
+
+// addLongDescription(info3);
 
 // ============================================================================================== //
 // ============================== Short Description Function ==================================== //
@@ -100,6 +124,51 @@ addLongDescription(info3);
 //   });
 // };
 // addTagline(info1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

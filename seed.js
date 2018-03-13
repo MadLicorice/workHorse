@@ -1,23 +1,26 @@
 const mongoose = require('mongoose');
-const syncRequest = require('sync-request');
-const fs = require('fs');
-const jsonfile = require('jsonfile');
+const db = require('./db/weGotControllers.js')
 
-const data = require('./data/WeGot/idsForFEC.js');
+const data = require('./data/WeGot/finData.json');
 
-//mongoose.connect('mongodb://localhost/INSERT_DB_NAME');
+//mongoose.connect('mongodb://localhost/weGotData');
 
-const seedDB = function(data) {
-  let weGotPlaceIds = data.map(restaurant => {
-    return (restaurant.place_id).toString();
-  });
-  fs.writeFileSync('weGotSomeIds.txt', weGotPlaceIds, 'utf-8', (err) => {
-    if (err) {
-      throw err;
-    }
+const seedDb = function(data) {
+  let overviewInfo = data.map(restaurant => {
+    return restaurant.result.address_components.map(address => {
+      return {
+        id: restaurant.result.place_id,
+        tagline: restaurant.result.tagline,
+        type: 'restaurant',
+        vicinity: address[2].long_name,
+        priceLevel: restaurant.result.price_level,
+        zagatFood: Number(restaurant.result.zagat_food),
+        zagatDecor: Number(restaurant.result.zagat_decor),
+        zagatService: Number(restaurant.result.zagat_service),
+        longDescription: restaurant.result.long_description,
+      }
+    })
   });
 };
 
 seedDb(data);
-
-// the command to run this is: npm run worker

@@ -3,13 +3,89 @@ const syncRequest = require('sync-request');
 const fs = require('fs');
 const jsonfile = require('jsonfile');
 
-let weGotIds = require('./data/WeGot/idsForFEC.js');
-let info1 = require('./data/WeGot/restaurants_detailed.json');
-let info2 = require('./data/WeGot/dataWithTagline.json');
-let info3 = require('./data/WeGot/dataWithShort.json');
-let info4 = require('./data/WeGot/dataWithLong.json');
+// let weGotIds = require('./data/WeGot/idsForFEC.js');
+// let info1 = require('./data/WeGot/restaurants_detailed.json');
+// let info2 = require('./data/WeGot/dataWithTagline.json');
+// let info3 = require('./data/WeGot/dataWithShort.json');
+// let info4 = require('./data/WeGot/dataWithLong.json');
 
-//mongoose.connect('mongodb://localhost/INSERT_DB_NAME');
+let trials = require('./data/MVP/studies.json');
+
+// mongoose.connect('mongodb://localhost/ctgovtrials');
+
+// ============================================================================================== //
+// ============================= MVP Studies Data Manipulation ====================================== //
+// ============================================================================================== //
+
+const addId = function(data) {
+  data.forEach((trial, index) => {
+    trial['id'] = index + 1;
+    console.log(index);
+  });
+  jsonfile.writeFileSync('studiesFin.json', data, 'utf-8', (err) => {
+    if (err) {
+      throw err;
+    }
+  });
+};
+
+addId(trials);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ============================================================================================== //
 // ============================= Long Description Function ====================================== //

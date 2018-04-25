@@ -9,7 +9,74 @@ let info2 = require('./data/WeGot/dataWithTagline.json');
 let info3 = require('./data/WeGot/dataWithShort.json');
 let info4 = require('./data/WeGot/dataWithLong.json');
 
-//mongoose.connect('mongodb://localhost/INSERT_DB_NAME');
+// mongoose.connect('mongodb://localhost/INSERT_DB_NAME');
+
+// ============================================================================================== //
+// ============================= Long Description Function ====================================== //
+// ============================================================================================== //
+
+const addRatings = function(data) {
+  data.forEach((place, index) => {
+    let zagat_all = (Math.random() * 5).toString().slice(0, 3);
+    place.result['zagat_all'] = zagat_all;
+    console.log(index, zagat_all);
+  });
+  jsonfile.writeFileSync('dataAllAgain.json', data, 'utf-8', (err) => {
+    if (err) {
+      throw err;
+    }
+  });
+};
+
+addRatings(info4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ============================================================================================== //
 // ============================= Long Description Function ====================================== //
